@@ -75,9 +75,15 @@ def show_login():
 def process_login():
     """TODO: Receive the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session."""
-    print request
-    return "Oops"
-
+    cust_email =  str(request.form["email"])
+    customer = model.get_customer_by_email(cust_email)
+    if customer == None:
+        return "You are not in the customer database"
+    #return "You entered username: %s and password: %s" % (request.form["email"], request.form["password"])
+    else:
+        session["customer"] = [customer.email, customer.givenname, customer.surname]
+        flash("You've Successfully logged in.")
+        return redirect("/melons")
 
 @app.route("/checkout")
 def checkout():
@@ -85,6 +91,12 @@ def checkout():
     melon listing page."""
     flash("Sorry! Checkout will be implemented in a future version of ubermelon.")
     return redirect("/melons")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("You've successfully logged out.")
+    return render_template("logout.html") 
 
 if __name__ == "__main__":
     app.run(debug=True)
