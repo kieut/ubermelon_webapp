@@ -11,6 +11,7 @@ class Melon(object):
         self.flesh_color = flesh_color
         self.rind_color = rind_color
         self.seedless = bool(seedless)
+        self.quantity = 0
 
     def price_str(self):
         return "$%.2f"%self.price
@@ -71,6 +72,7 @@ def get_melon_by_id(id):
                   row[6], row[7])
     
     return melon
+
 
 def get_customer_by_email(email):
     pass
