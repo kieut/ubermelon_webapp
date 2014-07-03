@@ -96,7 +96,14 @@ def checkout():
 def logout():
     session.clear()
     flash("You've successfully logged out.")
-    return render_template("logout.html") 
+    return render_template("logout.html")
+
+@app.route("/cart_items")
+def show_cart():
+
+    melons = [ (model.get_melon_by_id(int(id)), count) for id, count in session.setdefault("cart", {}).items() ]
+    total = sum([melon[0].price * melon[1] for melon in melons])
+    return render_template("_cart_items.html", melons = melons, total=total)
 
 if __name__ == "__main__":
     app.run(debug=True)

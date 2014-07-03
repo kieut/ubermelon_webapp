@@ -14,4 +14,30 @@
     </div>
     {% endfor %}
 </div>
+
+<div id="blackout-screen">
+    <div id="promotion" class="jumbotron">
+        <h1>"Huge Melon sale. Don't be Meloncholy." </h1>
+        <a href="" id="close-promotion">Close this window</a>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+function hide_Blackout(){
+    var blackout = $('div#blackout-screen');
+    blackout.hide();
+    return false; 
+};
+
+function main(){
+    var close_promo_link = $("a#close-promotion");
+    close_promo_link.click(hide_Blackout);
+};
+
+$(main);
+
+</script>
+
 {% endblock %}

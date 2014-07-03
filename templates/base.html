@@ -2,9 +2,18 @@
     <head>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/static/css/style.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-static-top">
+
+        <!-- drop down cart -->
+        <div id="cart">
+            <div id="cart-target"></div>
+            <a id="cart-close" class="btn btn-xs btn-default">Close</a>
+        </div>
+
+        
             <div class="container">
                 <div class="navbar-header">
                     <img src="/static/img/ubermelonsmall.png"><a class="navbar-brand" href="/">Ubermelon</a>
@@ -34,5 +43,36 @@
             {% endwith %}
             {% block body %}{% endblock %}
         </div>
+
+<script type="text/javascript">
+
+function showCartSummary(data){
+    var cart_target = $("div#cart-target");
+    cart_target.html(data);
+    $("div#cart").show();
+    return false;
+};
+
+function hideCartSummary(){
+    var cart = $("div#cart");
+    cart.hide();
+};
+
+function getCartContents(){
+    $.get("/cart_items", showCartSummary)
+};
+
+function main(){
+    var cart = $("a#myMelonCart");
+    cart.mouseover(getCartContents);
+
+    var cartClose = $("a#cart-close");
+    cartClose.click(hideCartSummary);
+};
+
+$(main);
+
+</script>
+
     </body>
 </html>
